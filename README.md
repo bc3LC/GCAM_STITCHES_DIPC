@@ -1,6 +1,6 @@
 # GCAM-STITCHES-BASD Integration (DIPC)
 
-The purpose of the repo is to be an easy yet comprehensive way to interact with [basd](https://github.com/JGCRI/basd), the Python package that allows you to **bias adjust** and **statistically downscale** arbitrary climate data, <u>without having to write a single line of code</u>, in a way that interacts with other climate tools [STITCHES](https://github.com/JGCRI/stitches) and [Hector](https://github.com/JGCRI/hector).
+The purpose of the repo is to provide an easy way to use [STITCHES](https://github.com/JGCRI/stitches) and [basd](https://github.com/JGCRI/basd), the Python package that allows you to **bias adjust** and **statistically downscale** arbitrary climate data, for any arbitrary scenarios from GCAM. The configuration is designed to be run on the High Performance Computer of the Donostia International Physics Center (DIPC).
 
 # Installation
 
