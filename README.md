@@ -162,25 +162,25 @@ After, you should see a new directory with the name of your experiment folder in
     * This is a bash script responsible for calling the above scripts in the correct order, `stitch_array.job` -> `tasrange_tasskew.job` -> `basd.job` -> `tasmin_tasmax.job` if using `STITCHES`.
 7. `stitch.job` 
     * This is a bash script responsible for submitting a job to generate your STITCHED data. It runs one array at a time for all the scenarios (not the recommended approach, see `stitch_array.sh`)
-8. `stitch_array.job` 
+8. `stitch_array` 
     * This is a bash script responsible for submitting a job to generate your STITCHED data. It runs one array per scenario and hence runs faster and more efficiently. 
 
 It's good to check that these files were generated as you expected. For example that the `.job` files include all the slurm metadata that you input, and check the explicit list file to see the tasks you've requested, and how many there are.
 
 Then, you're ready to run the STITCHES-BASD scripts for your GCAM scenarios, following these steps: 
 
-1. Upload all the `GCAM_STITCHES_DIPC` folder from the GCAM server to your DIPC `scratch/bc3lc/[project_name]` (e.g. 
+1. Upload all the `GCAM_STITCHES_DIPC` folder from the GCAM server to your DIPC `scratch/bc3lc/[project_name]` (e.g. using the `server2dipc.sh` file provided in the repository)
 
-Do this by running the `manager.job` script from the root repository level. For example:
+2. Submit you running the `manager.job` script from the root repository level on the DIPC session. For example:
 ```
 sbatch intermediate/test_run/manager.job
 ```
-will submit all of your jobs, creating the `tasrange`/`tasskew` data along the way, and `tasmin`/`tasmax` at the end.
+will submit all of your jobs, creating the `tasrange`/`tasskew` data along the way, and `tasmin`/`tasmax` at the end (if required). 
 
 Alternatively you can run each of the `.job` scripts by hand. This may be especially useful if you either:
 
 * Haven't requested `tasmin` or `tasmax`, in which case you can skip the two scripts responsible for those variables. Though running them in this case is fine, the scripts will do nothing.
-* Or have lots of tasks you want to run, but maybe not all at once, or want to test the run with just one task. In this case you can run the `basd.job` individually. In `basd.job` edit the `--array` flag like `--array=0` and run
+* Or have lots of tasks you want to run, but maybe not all at once, or want to test the run with just one task. In this case you can run the `stitch_array.job` and then `basd.job` individually. In `basd.job` edit the `--array` flag like `--array=0` and run
 
     ```
     sbatch intermediate/test_run/basd.job
@@ -188,22 +188,9 @@ Alternatively you can run each of the `.job` scripts by hand. This may be especi
 
     which will submit just the first run, and the array argument can of course be set to your liking.
 
-### Avoiding the Slurm Scheduler
+## Python code launched by STITCHES and BASD 
 
-For the test data for example, which is small, you can choose to avoid using the slurm scheduler. For example run
-
-```
-python code/python/main.py 0 test_run
-```
-which will run the first job in your list. Similarly,
-```
-python code/python/create_tasrange_tasskew.py test_run
-```
-will run the python script for generating `tasrange` and `tasskew`, and
-```
-python code/python/create_tasmin_tasmax.py test_run
-```
-will run the python script for generating the `tasmin` and `tasmax` variables.
+The `manager` will launch successively two jobs: `stitch_array` and `basd`. Each will 
 
 ## Monitoring Job Progress
 
