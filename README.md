@@ -190,7 +190,13 @@ Alternatively you can run each of the `.job` scripts by hand. This may be especi
 
 ## Python code launched by STITCHES and BASD 
 
-The `manager` will launch successively two jobs: `stitch_array` and `basd`. Each will 
+The `manager` will launch successively two jobs: `stitch_array` and `basd`. Each will run specific Python scripts contained in the `code/python' folder. 
+
+1. `generate_stitched_data_array`: The script will read the temperature data provided in the inputs and run STITCHES for each of the scenario provided.
+2. `main`: The script will launch the BASD process for each scenario and variable emulated by STITCHES. The process is broken in two: 1. Bias-adjustment (BA) and 2. Statistical Downscaling (SD)
+  * `stitched_ba`: The script launches the BA process
+  * `stitched_sd`: The script launches the SD process
+
 
 ## Monitoring Job Progress
 
