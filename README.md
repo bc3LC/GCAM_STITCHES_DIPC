@@ -7,8 +7,10 @@ The purpose of the repo is to be an easy yet comprehensive way to interact with 
 Start by cloning this repository:
 
 ```
-git clone https://github.com/JGCRI/climate_integration_metarepo.git
+git clone https://github.com/bc3LC/GCAM_STITCHES_DIPC
 ```
+
+## Option 1. Fresh install 
 
 Set up a Conda virtual environment ([Conda user guide](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)), and activate it. **Specifically use Conda to manage this environment as we will use a Python package which is only available through Conda.**
 
@@ -43,6 +45,14 @@ You can also just install from github, and you could still specify the branch yo
 pip install git+https://github.com/JGCRI/basd.git
 pip install git+https://github.com/JGCRI/stitches.git
 ```
+
+## Option 2. Activate existing conda environment from the GCAM server 
+
+```
+conda activate xesmf
+```
+
+The conda environment has all the required packages installed and can be used readily.
 
 # Usage
 
