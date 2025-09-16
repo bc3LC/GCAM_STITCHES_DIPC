@@ -1,0 +1,4 @@
+ESM,ESM_Input_Location,Output_Location,Reference_Dataset,Reference_Input_Location,Variable,Scenario,Ensemble,target_period,application_period,daily,monthly,stitched
+CanESM5,/scratch/bc3lc/[project_name]/results/stitches,/scratch/bc3lc/[project_name]/results/basd,W5E5v2,/scratch/bc3lc/[project_name]/data/ISIMIP,tas,SSP1-2p6o,,1990-2010,2015-2100,TRUE,TRUE,TRUE
+,,,,,hurs,SSP2-4p5,,,,,,
+,,,,,pr,SSP3-6p6,,,,,,
