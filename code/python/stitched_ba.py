@@ -19,7 +19,7 @@ from dask.distributed import (Client, LocalCluster)  # Using Dask in parallel
 
 # CONSTANTS
 # INPUT_PATH = 'C:/GCAM/Theo/GCAM_7.2_Impacts/python/climate_integration_metarepo/input/'
-INPUT_PATH = "/scratch/bc3lc/GCAM_7.2_Impacts/climate_integration_metarepo/input/"    
+INPUT_PATH = "/scratch/bc3lc/[project_name]/climate_integration_metarepo/input/"    
 
 # Global paths and file names 
 temp_intermediate_dir = None
