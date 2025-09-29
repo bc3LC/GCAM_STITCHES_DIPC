@@ -13,8 +13,8 @@ Output:
     
 
 conda activate xesmf
-cd C:\GCAM\Theo\GCAM_7.2_Impacts\python\climate_integration_metarepo
-py code\python\job-script-generation.py “Impacts-stitches”
+cd /scratch/bc3lc/ap-heat/GCAM_STITCHES_DIPC
+py code/python/job-script-generation.py “ap-heat”
 
 
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     # Define paths
     input_files_path = 'input'
     intermediate_path = 'intermediate'
-    run_manager_file = 'run_manager.csv'
+    run_manager_file = 'run_manager_dipc.csv'
 
     # Helper function to remove nans
     def remove_nas(x):
