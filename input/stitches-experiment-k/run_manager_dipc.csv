@@ -1,0 +1,3 @@
+ESM,ESM_Input_Location,Output_Location,Reference_Dataset,Reference_Input_Location,Variable,Scenario,Ensemble,target_period,application_period,daily,monthly,stitched
+CanESM5,/scratch/bc3lc/ap-heat/GCAM_STITCHES_DIPC/results/stitches,/scratch/bc3lc/[project_name]/results/basd,W5E5v2.0,/scratch/bc3lc/ap-heat/GCAM_STITCHES_DIPC/data/ISIMIP,tas,GCAM_SSP1,,1990-2010,2015-2050,TRUE,TRUE,TRUE
+,,,,,,GCAM_SSP5,,,,,,

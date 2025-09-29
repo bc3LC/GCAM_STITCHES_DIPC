@@ -1,0 +1,16 @@
+parameter,value
+time,23:00:00
+partition,general
+qos,regular
+email,claudia.rodes@bc3research.org
+mail-type,ALL
+cpus-per-task,30
+nodes,1
+ntasks-per-node,1
+mem,160G
+mem_ba,32G
+mem_sd,160G
+output,%x.out
+error,%x.err
+max_concurrent,12
+conda_env,/scratch/bc3lc/conda-env/ap-heat-env
