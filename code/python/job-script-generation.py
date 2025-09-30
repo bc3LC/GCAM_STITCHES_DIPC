@@ -43,7 +43,6 @@ if __name__ == "__main__":
 
     # Read in user defined job requests
     run_manager_df = pd.read_csv(os.path.join(input_files_path, run_name, run_manager_file))
-    # run_manager_df = pd.read_csv("C:\\GCAM\\Theo\\GCAM_7.2_Impacts\\python\\climate_integration_metarepo\\input\\Impacts-stitches\\run_manager.csv")
 
     esms = remove_nas(run_manager_df['ESM'].values)
     esm_input_paths = remove_nas(run_manager_df['ESM_Input_Location'].values)

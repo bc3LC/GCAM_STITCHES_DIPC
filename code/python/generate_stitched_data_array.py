@@ -72,7 +72,6 @@ def format_data_for_stitches(interped_data, experiment):
     interped_data['model'] = ''
     interped_data['ensemble'] = ''
     interped_data['experiment'] = experiment
-
     # Convert to tas anomaly
     interped_data.value = interped_data.value - np.mean(interped_data.value[(interped_data.year <= 2014) & (interped_data.year >= 1995)])
 
@@ -116,7 +115,6 @@ def get_recipe(target_data, archive_data, variables):
 
 
 def generate_stitched(esm, variables, time_series, years, experiment,  output_path, chunk_sizes = 9):
-    
     # # DEBUG
     # time_series = tas_time_series
     # output_path = esm_input_paths[0]
@@ -163,13 +161,13 @@ if __name__ == "__main__":
     # Name of the current experiment directory
     # task_id = str(sys.argv[1])
     # run_name = str(sys.argv[2])
-    root_dir = "/scratch/bc3lc/[project_name]/climate_integration_metarepo/"
+    root_dir = "/scratch/bc3lc/ap-heat/GCAM_STITCHES_DIPC/"
     
     # # DEBUG
-    # root_dir = "C:\\GCAM\\Theo\\GCAM_7.2_Impacts\\python/climate_integration_metarepo/"
+    # root_dir = "C:/GCAM/GCAM_7.0_Claudia/GCAM_STITCHES_DIPC"
     # task_id = 1
-    # run_name = "Impacts-stitches"
-    # scenario = "SSP2-4p5"
+    # run_name = "stitches-experiment-k"
+    # scenario = "GCAM_SSP1"
     
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('task_id', type=int, help='The number of the current task (row of the run_manager_explicit_list.csv file)')
@@ -178,7 +176,7 @@ if __name__ == "__main__":
     parser.add_argument('--warn', action='store_const', dest='warn',
                         const=True, default=False,
                         help='flag to print warnings in log .out file')
-    args = parser.parse_args()
+    args = parser.parse_args() # args = parser.parse_args(["1", "stitches-experiment-k", "--warn"])
 
     # Task index from SLURM array to run specific scenario
     task_id = args.task_id
@@ -200,7 +198,7 @@ if __name__ == "__main__":
     input_files_path = os.path.join(root_dir, 'input/', run_name)
 
     # Reading the run details to get variables 
-    run_manager_df = pd.read_csv(os.path.join(input_files_path, 'run_manager.csv'))
+    run_manager_df = pd.read_csv(os.path.join(input_files_path, 'run_manager_dipc.csv'))
 
     # Extracting needed infor and formatting the run details
     variables = remove_nas(run_manager_df['Variable'].values)
