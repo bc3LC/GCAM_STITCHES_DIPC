@@ -14,7 +14,7 @@ Output:
 
 conda activate xesmf
 cd /scratch/bc3lc/ap-heat/GCAM_STITCHES_DIPC
-py code\python\job-script-generation.py “ap-heat”
+py code/python/job-script-generation.py “ap-heat”
 
 
 
