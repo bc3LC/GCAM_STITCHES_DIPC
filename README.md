@@ -45,6 +45,7 @@ and then installing in your virtual environment using develop mode by navigating
 python -m pip install -e .
 ```
 
+**Note**: For daily gridded data output, ensure you are using the [`daily-data-refine`](https://github.com/JGCRI/stitches/tree/daily-data-refinements) branch located in the stitches repository.
 
 ### GitHub Remote
 You can also just install from github, and you could still specify the branch you want to use,
@@ -206,4 +207,4 @@ When you submit the `basd` portion of your jobs, you can view their progress, re
 
 ## Output
 
-Navigate to the output paths that you set in the run manager file. This should be populated with NetCDF files as the run progresses. You can use software like NCO, with the `ncdump` command to view metadata, or you can use software like [Panopoly](https://www.giss.nasa.gov/tools/panoply/) to open and view the data plotted.
+Navigate to the output paths that you set in the run manager file. This should be populated with NetCDF files as the run progresses. You can use software like NCO, with the `ncdump` command to view metadata, or you can use software like [Panoply](https://www.giss.nasa.gov/tools/panoply/) to open and view the data plotted.
