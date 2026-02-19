@@ -1,15 +1,6 @@
 """
 This script will be used for BASD for data hosted locally
 """
-# Fix ESMF and esmpy name mismatch
-import sys
-try:
-    import esmpy as ESMF
-except ImportError:
-    pass
-else:
-    sys.modules['ESMF'] = ESMF
-
 
 # Importing Needed Libraries
 import os  # For navigating os

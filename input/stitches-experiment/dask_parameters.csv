@@ -1,2 +1,2 @@
 time_chunk_size,lat_chunk_size,lon_chunk_size,dask_temp_directory
-50,5,5,/scratch/bc3lc/[project_name]/dask_tmp
+50,5,5,/scratch/bc3lc/heat-deaths/GCAM_STITCHES_DIPC/dask_tmp

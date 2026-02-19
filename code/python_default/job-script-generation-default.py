@@ -102,12 +102,19 @@ if __name__ == "__main__":
 
     # Read in parameters relating to slurm
     slurm_params = pd.read_csv(os.path.join(input_files_path, run_name, 'slurm_parameters.csv'))
-    account = slurm_params[slurm_params['parameter'] == 'account']['value'].values[0]
+    # account = slurm_params[slurm_params['parameter'] == 'account']['value'].values[0]
     time = slurm_params[slurm_params['parameter'] == 'time']['value'].values[0]
     partition = slurm_params[slurm_params['parameter'] == 'partition']['value'].values[0]
+    qos = slurm_params[slurm_params['parameter'] == 'qos']['value'].values[0]
     max_concurrent = slurm_params[slurm_params['parameter'] == 'max_concurrent']['value'].values[0]
     email = slurm_params[slurm_params['parameter'] == 'email']['value'].values[0]
     mail_type = slurm_params[slurm_params['parameter'] == 'mail-type']['value'].values[0]
+    cpus_per_task = slurm_params[slurm_params['parameter'] == 'cpus-per-task']['value'].values[0]
+    nodes = slurm_params[slurm_params['parameter'] == 'nodes']['value'].values[0]
+    ntasks_per_node = slurm_params[slurm_params['parameter'] == 'ntasks-per-node']['value'].values[0]
+    mem = slurm_params[slurm_params['parameter'] == 'mem']['value'].values[0]
+    mem_ba = slurm_params[slurm_params['parameter'] == 'mem_ba']['value'].values[0]
+    mem_sd = slurm_params[slurm_params['parameter'] == 'mem_sd']['value'].values[0]
     conda_env = slurm_params[slurm_params['parameter'] == 'conda_env']['value'].values[0]
 
     # Create bash file for submitting all BASD jobs to slurm
@@ -234,28 +241,37 @@ if __name__ == "__main__":
         job_file.writelines('runtime=$( echo "($end - $start) / 60" | bc -l )\n')
         job_file.writelines('echo "Run completed in $runtime minutes"\n')
 
-    # Create bash file for generating STITCHED data
+    # Create bash file for generating STITCHED data - COMMENT IN/OUT FOR ARRAY MODE 
     if stitched:
-        with open(os.path.join(intermediate_path, run_name, 'stitch.job'), 'w') as job_file:
+        with open(os.path.join(intermediate_path, run_name, 'stitch_array.job'), 'w') as job_file:
             job_file.writelines(f"#!/bin/bash\n\n\n")
             job_file.writelines('# Slurm Settings\n')
-            job_file.writelines(f"#SBATCH --account={account}\n")
+            # job_file.writelines(f"#SBATCH --account={account}\n")
             job_file.writelines(f"#SBATCH --partition={partition}\n")
-            job_file.writelines(f"#SBATCH --job-name={run_name}_stitch.job\n")
+            job_file.writelines(f"#SBATCH --qos={qos}\n")
+            job_file.writelines(f"#SBATCH --job-name=STITCH_{run_name}\n")
             job_file.writelines(f"#SBATCH --time={time}\n")
             job_file.writelines(f"#SBATCH --mail-type={mail_type}\n")
             job_file.writelines(f"#SBATCH --mail-user={email}\n")
-            job_file.writelines(f"#SBATCH --output=.out/{run_name}_stitch.out\n\n\n")
+            job_file.writelines(f"#SBATCH --cpus-per-task={cpus_per_task}\n")
+            job_file.writelines(f"#SBATCH --nodes={nodes}\n")
+            job_file.writelines(f"#SBATCH --ntasks-per-node={ntasks_per_node}\n")
+            job_file.writelines(f"#SBATCH --mem={mem}\n")
+            job_file.writelines("#SBATCH --output=%x_%a.out\n")
+            job_file.writelines("#SBATCH --error=%x_%a.err\n\n\n")
+            job_file.writelines(f"#SBATCH --array=0-{mesh_stitch.shape[0]-1}%{max_concurrent}\n\n\n")
+
             job_file.writelines('# Load Modules\n')
-            job_file.writelines('module load gcc/11.2.0\n')
-            job_file.writelines('module load python/miniconda3.9\n')
-            job_file.writelines('source /share/apps/python/miniconda3.9/etc/profile.d/conda.sh\n\n')
+            job_file.writelines('module load GCC/11.3.0\n')
+            job_file.writelines('module load Python\n\n')
+            job_file.writelines('module load Anaconda3/2020.02\n')
+            job_file.writelines('source /scicomp/EasyBuild/CentOS/7.4.1708/Skylake/software/Anaconda3/2020.02/bin/conda.sh\n\n')
             job_file.writelines('# activate conda environment\n')
             job_file.writelines(f'conda activate {conda_env}\n\n')
             job_file.writelines('# Timing\n')
             job_file.writelines('start=`date +%s.%N`\n\n')
             job_file.writelines('# Run script\n')
-            job_file.writelines(f"python code/python/generate_stitched_data.py {run_name}\n\n")
+            job_file.writelines(f"python ../../code/python/generate_stitched_data_array.py $SLURM_ARRAY_TASK_ID {run_name}\n\n")
             job_file.writelines('# End timing and print runtime\n')
             job_file.writelines('end=`date +%s.$N`\n')
             job_file.writelines('runtime=$( echo "($end - $start) / 60" | bc -l )\n')
