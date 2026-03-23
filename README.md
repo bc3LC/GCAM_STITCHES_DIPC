@@ -45,7 +45,6 @@ and then installing in your virtual environment using develop mode by navigating
 python -m pip install -e .
 ```
 
-**Note**: For daily gridded data output, ensure you are using the [`daily-data-refine`](https://github.com/JGCRI/stitches/tree/daily-data-refinements) branch located in the stitches repository.
 
 ### GitHub Remote
 You can also just install from github, and you could still specify the branch you want to use,
@@ -54,6 +53,11 @@ You can also just install from github, and you could still specify the branch yo
 pip install git+https://github.com/JGCRI/basd.git
 pip install git+https://github.com/JGCRI/stitches.git
 ```
+
+
+### Software dependencies
+- **STITCHES Branch:** For daily gridded data output, you must use the [`daily-data-refinement`](https://github.com/JGCRI/stitches/tree/daily-data-refinements) branch of the `stitches` repository.
+- **Zarr Version:** This workflow requires `zarr` version **2.18.3**
 
 
 # Usage
